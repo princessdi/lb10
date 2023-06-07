@@ -1,0 +1,18 @@
+<div>
+  <h2>Перегляд та редагування даних</h2>
+  <button (click)="loadStreets()">Show Data</button>
+  <ul>
+    <li *ngFor="let street of streets">
+      <h3>{{ street.streetName }}</h3>
+      <p>Довжина: {{ street.length }}</p>
+      <p>Історія: {{ street.history }}</p>
+      <p>Район: {{ street.district }}</p>
+      <p>Попередні назви вулиці:</p>
+      <ul>
+        <li *ngFor="let previousName of street.previousNames">
+          {{ previousName.name }}
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>

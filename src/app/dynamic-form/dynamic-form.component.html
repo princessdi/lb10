@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title> Довідник вулиць міста </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<form [formGroup]="streetForm" (ngSubmit)="onSubmit()">
+  <ion-item>
+    <ion-label position="floating">Найменування вулиці</ion-label>
+    <ion-input type="text" formControlName="streetName"></ion-input>
+  </ion-item>
+  <ion-item *ngIf="isFieldInvalid('streetName')">
+    <ion-text color="danger">Найменування вулиці є обов'язковим полем</ion-text>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Довжина</ion-label>
+    <ion-input type="text" formControlName="length"></ion-input>
+  </ion-item>
+  <ion-item *ngIf="isFieldInvalid('length')">
+    <ion-text color="danger">Довжина має бути числовим значенням</ion-text>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Історія</ion-label>
+    <ion-textarea formControlName="history"></ion-textarea>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Район</ion-label>
+    <ion-input type="text" formControlName="district"></ion-input>
+  </ion-item>
+  <ion-item *ngIf="isFieldInvalid('district')">
+    <ion-text color="danger">Район є обов'язковим полем</ion-text>
+  </ion-item>
+
+  <ion-list formArrayName="previousNames">
+    <ion-item
+      *ngFor="let previousName of previousNames.controls; let i = index"
+      [formGroupName]="i"
+    >
+      <ion-label position="floating"
+        >Попереднє найменування {{ i + 1 }}</ion-label
+      >
+      <ion-input type="text" formControlName="name"></ion-input>
+      <ion-button fill="clear" slot="end" (click)="removePreviousName(i)"
+        >Видалити</ion-button
+      >
+    </ion-item>
+    <ion-item>
+      <ion-button fill="clear" (click)="addPreviousName()"
+        >Додати попереднє найменування</ion-button
+      >
+    </ion-item>
+  </ion-list>
+
+  <ion-button expand="full" type="submit">Submit</ion-button>
+</form>
